@@ -51,6 +51,7 @@ RUN mkdir -p /usr/src/wordpress \
 #__________________________________________________________
 
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 EXPOSE 9000
 
