@@ -1,0 +1,102 @@
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++
+#			INCEPTION DOCKER COMPOSE FILE 
+#++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+name: inception
+
+services:
+  nginx:
+    container_name: nginx
+    env_file:
+      - .env
+    secrets:
+      - nginx_tls_key 
+      - nginx_tls_cert 
+    build:
+      context: ./requirements/nginx
+      args:
+        SSL_SUBJECT: "${SSL_SUBJECT}"
+    environment:
+      SERVER_NAME: "${SERVER_NAME}"
+      DEBUG: "true"
+    ports:
+      - "443:443"
+    depends_on:
+      - wordpress
+    restart: always
+    networks:
+      - front
+      - back
+    volumes:
+      - wordpress:/var/www/html:ro
+
+  wordpress:
+    build: ./requirements/wordpress
+    container_name: wordpress 
+    expose:
+      - "9000"
+    env_file:
+      - .env
+    secrets:
+      - wp_admin_password
+      - wp_user_password
+      - mariadb_password
+    restart: always
+    networks:
+      - back
+    volumes:
+      - wordpress:/var/www/html
+    depends_on:
+      mariadb:
+        condition: service_healthy
+
+  mariadb:
+    build: ./requirements/mariadb
+    container_name: mariadb 
+    environment:
+      DEBUG: "true"
+    env_file:
+      - .env
+    secrets:
+      - mariadb_root_password
+      - mariadb_password
+    expose:
+      - "3306"
+    restart: always
+    networks:
+      - back
+    volumes:
+      - mariadb:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mariadb-admin ping -h 127.0.0.1 -p\"$$(cat /run/secrets/mariadb_root_password)\" --silent"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+secrets:
+  nginx_tls_key:
+    file: ../secrets/nginx_tls_key.pem
+  nginx_tls_cert:
+    file: ../secrets/nginx_tls_cert.crt
+  mariadb_root_password:
+    file: ../secrets/mariadb_root_password.txt
+  mariadb_password:
+    file: ../secrets/mariadb_password.txt
+  wp_admin_password:
+    file: ../secrets/wp_admin_password.txt
+  wp_user_password:
+    file: ../secrets/wp_user_password.txt
+
+networks:
+  front:
+    driver: bridge
+  back:
+    driver: bridge
+    internal: true
+
+volumes:
+  wordpress:
+    driver: local
+
+  mariadb:
+    driver: local

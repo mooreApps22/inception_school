@@ -1,0 +1,164 @@
+/*
+		Theme Name: smooretheme
+			Author: smoore
+				Version: 1.0
+*/
+
+/*
+	Palette:
+
+*/
+
+:root{
+	--neon_mag:	#ff48c4;
+	--aqua_teal: #2bd1fc;
+	--electric_yel: #f3ea5f;
+	--pur: #c04df9;
+	--ruby: #ff3f3f;
+}
+
+body{
+	background-color: black;
+}
+
+h1{
+	font-family: "Press Start 2P", "Courier New";
+	font-size: 80px;
+	text-align: center;
+	color: var(--neon_mag);
+	text-shadow: -2px -2px 5px var(--aqua_teal);
+	animation-name: glow;
+	animation-duration: 2s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+@keyframes glow {
+	0%{
+		text-shadow: -2px -2px 20px var(--aqua_teal);
+	}
+	25%{
+		text-shadow: -2px 2px 20px var(--pur);
+	}
+	50%{
+		text-shadow: 2px 2px 20px var(--aqua_teal);
+	}
+	75%{
+		text-shadow: 2px -2px 10px var(--pur);
+	}
+	100%{
+		text-shadow: -2px -2px 10px var(--aqua_teal);
+	}
+}
+p{
+	font-family: "Press Start 2P", "Courier New";
+	font-size: 20px;
+	color: var(--neon_mag);
+	text-shadow: -2px -1px 5px var(--aqua_teal);
+	margin-left: 100px;
+	margin-right: 100px;
+}
+strong{
+	color: var(--aqua_teal);
+	text-shadow: -2px -1px 5px var(--neon_mag);
+}
+a{
+	text-decoration: none;
+}
+
+button{
+	border: none;
+	font-family: "Press Start 2P", "Courier New";
+	font-size: 50px;
+	color: var(--ruby);
+	background: var(--electric_yel);
+	box-shadow: -5px -5px 5px var(--pur);
+	margin-top: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+
+	animation-name: fade_in;
+	animation-duration: 1s;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: 1;
+}
+
+ul{
+	font-family: "Press Start 2P", "Courier New";
+	margin-left: 100px;
+	font-size: 20px;
+	color: var(--neon_mag);
+	text-shadow: -2px -1px 5px var(--aqua_teal);
+}
+
+label{
+	text-align: center;
+	border: none;
+	font-family: "Press Start 2P", "Courier New";
+	font-size: 25px;
+	color: var(--ruby);
+	background: var(--electric_yel);
+	box-shadow: -5px -5px 5px var(--pur);
+	margin-top: 20px;
+	margin-left: 100px;
+	margin-right: auto;
+	width: 200px;
+	display: block;
+}
+input{
+	margin-left: 100px;
+	font-family: "Press Start 2P", "Courier New";
+	font-size: 15px;
+	color: black;
+	background: white;
+	width: 200px;
+	margin-top: 10px;
+}
+button:hover{
+	color: var(--neon_mag);
+	text-shadow: -2px -2px 5px var(--aqua_teal);
+	box-shadow: -5px -5px 5px var(--aqua_teal);
+	border: none;
+}
+#pusher{
+	font-family: "Press Start 2P", "Courier New";
+	color: var(--neon_mag);
+	background: var(--electric_yel);
+	margin-top: 20px;
+}
+@keyframes fade_in{
+	from{
+		opacity: 0;
+	}
+	to{
+		opacity: 1;
+	}
+}
+
+#secret{
+	text-align: center;
+}
+
+.site-header{
+	text-align: center;
+	padding: 40px 20px;
+}
+
+.site-title a{
+	color: var(--neon_mag);
+}
+
+.site-description{
+	margin: 10px auto 0;
+	max-width: 900px;
+}
+
+#site-content{
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+article{
+	margin: 40px 0;
+}
